@@ -1,12 +1,28 @@
 package router
 
-import "github.com/gofiber/fiber/v2"
+import (
+	handler "github/Khemmathat321/goCRUD/handlers"
+
+	"github.com/gofiber/fiber/v2"
+)
 
 // Registers func
 func Registers(app *fiber.App) {
-	app.Get("/", func(c *fiber.Ctx) error {
-		return c.SendString("Hello, World 2")
-	})
+	app.Static("/public", "../public")
 
-	app.Static("/", "../public")
+	// Middleware
+	api := app.Group("/api")
+
+	User(api)
+}
+
+// User func
+func User(router fiber.Router) {
+	router = router.Group("/users")
+
+	// Basic resouce routes
+	router.Get("/:id?", handler.Get)
+	router.Post("/create", handler.Create)
+	router.Put("/:id/edit", handler.Update)
+	router.Delete("/:id/delete", handler.Delete)
 }
