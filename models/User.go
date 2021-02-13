@@ -16,9 +16,8 @@ type User struct {
 }
 
 // Migrate func
-func (User) Migrate() string {
-	return "TEST Migrate"
-	// database.DBConn.AutoMigrate(&User{})
+func (User) Migrate() {
+	database.DBConn.AutoMigrate(&User{})
 }
 
 func (User) teardown() {
