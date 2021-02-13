@@ -5,8 +5,16 @@ import (
 	"gorm.io/gorm"
 )
 
+var DBConn *gorm.DB
+
 // PgConnect function
-func PgConnect() (db *gorm.DB, err error) {
+func PgConnect() {
+	var err error
+
 	dsn := "host=localhost user=root password=root dbname=mydb port=5432 sslmode=disable TimeZone=Asia/Bangkok"
-	return gorm.Open(postgres.Open(dsn), &gorm.Config{})
+	DBConn, err = gorm.Open(postgres.Open(dsn), &gorm.Config{})
+
+	if err != nil {
+		panic("Failed to connect database")
+	}
 }

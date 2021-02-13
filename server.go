@@ -1,7 +1,9 @@
 package main
 
 import (
+	database "github/Khemmathat321/goCRUD/database"
 	middleware "github/Khemmathat321/goCRUD/middleware"
+	model "github/Khemmathat321/goCRUD/models"
 	router "github/Khemmathat321/goCRUD/routes"
 
 	"github.com/gofiber/fiber/v2"
@@ -10,8 +12,11 @@ import (
 func main() {
 	app := fiber.New()
 
-	// db, _ := database.PgConnect()
+	// Init connection to database
+	database.PgConnect()
+	model.User{}.Migrate()
 
+	// Register routes
 	middleware.Registers(app)
 	router.Registers(app)
 
